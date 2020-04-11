@@ -118,6 +118,9 @@ handle_media_stream (GstPad * pad, GstElement * pipe, const char * convert_name,
   conv = gst_element_factory_make (convert_name, NULL);
   g_assert_nonnull (conv);
   sink = gst_element_factory_make (sink_name, NULL);
+  if (g_strcmp0 (sink_name, "filesink") == 0) {
+    g_object_set(sink, "location", "/out", NULL);
+  }
   g_assert_nonnull (sink);
 
   if (g_strcmp0 (convert_name, "audioconvert") == 0) {
@@ -164,7 +167,7 @@ on_incoming_decodebin_stream (GstElement * decodebin, GstPad * pad,
   if (g_str_has_prefix (name, "video")) {
     handle_media_stream (pad, pipe, "videoconvert", "autovideosink");
   } else if (g_str_has_prefix (name, "audio")) {
-    handle_media_stream (pad, pipe, "audioconvert", "autoaudiosink");
+    handle_media_stream (pad, pipe, "audioconvert", "filesink");
   } else {
     g_printerr ("Unknown pad %s, ignoring", GST_PAD_NAME (pad));
   }
