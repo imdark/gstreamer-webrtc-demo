@@ -21,7 +21,7 @@ RUN apt-get update &&\
 
 # Seems to be a problem with GStreamer and lastest openssl in debian buster, so rolling back to working version
 # https://gitlab.freedesktop.org/gstreamer/gst-plugins-bad/issues/811
-RUN curl -SL http://security-cdn.debian.org/debian-security/pool/updates/main/o/openssl/openssl_1.1.0j-1~deb9u1_amd64.deb -o openssl.deb && \
+RUN curl -SL http://security-cdn.debian.org/debian-security/pool/updates/main/o/openssl/openssl_1.1.1d-0+deb10u2_amd64.deb -o openssl.deb && \
     dpkg -i openssl.deb
 
 COPY --from=builder /home/gradle/work/build/libs/work.jar /gst-java.jar

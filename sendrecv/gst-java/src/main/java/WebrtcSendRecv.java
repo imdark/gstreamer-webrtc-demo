@@ -219,7 +219,8 @@ public class WebrtcSendRecv {
             Element queue = ElementFactory.make("queue", "my-audioqueue");
             Element audioconvert = ElementFactory.make("audioconvert", "my-audioconvert");
             Element audioresample = ElementFactory.make("audioresample", "my-audioresample");
-            Element autoaudiosink = ElementFactory.make("autoaudiosink", "my-autoaudiosink");
+            //Element autoaudiosink = ElementFactory.make("autoaudiosink", "my-autoaudiosink");
+            Element autoaudiosink = ElementFactory.make("filesink", "my-autoaudiosink");
             pipe.addMany(queue, audioconvert, audioresample, autoaudiosink);
             queue.syncStateWithParent();
             audioconvert.syncStateWithParent();

@@ -3,10 +3,10 @@ version: '3'
 services:
   # uncomment the sendrecv you would like to use
   #
-  # sendrecv-gst:
-  #   build: ./sendrecv/gst
-  sendrecv-gst-java:
-    build: ./sendrecv/gst-java
+  sendrecv-gst:
+    build: ./sendrecv/gst
+  #sendrecv-gst-java:
+  # build: ./sendrecv/gst-java
   #sendrecv-gst-rust:
   #  build: ./sendrecv/gst-rust
   sendrecv-js:
