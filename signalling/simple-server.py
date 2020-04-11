@@ -15,6 +15,7 @@ import asyncio
 import websockets
 import argparse
 import http
+import traceback
 
 from concurrent.futures._base import TimeoutError
 
@@ -61,7 +62,7 @@ async def recv_msg_ping(ws, raddr):
     while msg is None:
         try:
             msg = await asyncio.wait_for(ws.recv(), KEEPALIVE_TIMEOUT)
-        except TimeoutError:
+        except asyncio.exceptions.TimeoutError:
             print('Sending keepalive ping to {!r} in recv'.format(raddr))
             await ws.ping()
     return msg
@@ -244,6 +245,8 @@ async def handler(ws, path):
         await connection_handler(ws, peer_id)
     except websockets.ConnectionClosed:
         print("Connection to peer {!r} closed, exiting handler".format(raddr))
+    except:
+        traceback.print_exc()
     finally:
         await remove_peer(peer_id)
 

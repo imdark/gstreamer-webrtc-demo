@@ -164,9 +164,10 @@ on_incoming_decodebin_stream (GstElement * decodebin, GstPad * pad,
   caps = gst_pad_get_current_caps (pad);
   name = gst_structure_get_name (gst_caps_get_structure (caps, 0));
 
-  if (g_str_has_prefix (name, "video")) {
-    handle_media_stream (pad, pipe, "videoconvert", "autovideosink");
-  } else if (g_str_has_prefix (name, "audio")) {
+  //if (g_str_has_prefix (name, "video")) {
+    //handle_media_stream (pad, pipe, "videoconvert", "autovideosink");
+  //} else if (g_str_has_prefix (name, "audio")) {
+  if (g_str_has_prefix (name, "audio")) {
     handle_media_stream (pad, pipe, "audioconvert", "filesink");
   } else {
     g_printerr ("Unknown pad %s, ignoring", GST_PAD_NAME (pad));
