@@ -6,6 +6,8 @@ services:
   sendrecv-audio-gst:
     build: ./sendrecv/gst-audio/
     restart: always
+    volumes:
+      - ./out_audio:/out_audio
   #sendrecv-gst:
   # build: ./sendrecv/gst
   # restart: always

@@ -118,10 +118,11 @@ handle_media_stream (GstPad * pad, GstElement * pipe, const char * convert_name,
   conv = gst_element_factory_make (convert_name, NULL);
   g_assert_nonnull (conv);
   sink = gst_element_factory_make (sink_name, NULL);
-  if (g_strcmp0 (sink_name, "filesink") == 0) {
-    g_object_set(sink, "location", "/out", NULL);
-  }
   g_assert_nonnull (sink);
+
+  if (g_strcmp0 (sink_name, "filesink") == 0) {
+    g_object_set(sink, "location", "/out_audio/out", NULL);
+  }
 
   if (g_strcmp0 (convert_name, "audioconvert") == 0) {
     /* Might also need to resample, so add it just in case.
@@ -165,7 +166,7 @@ on_incoming_decodebin_stream (GstElement * decodebin, GstPad * pad,
   name = gst_structure_get_name (gst_caps_get_structure (caps, 0));
 
   if (g_str_has_prefix (name, "video")) {
-    handle_media_stream (pad, pipe, "videoconvert", "filesink");
+    handle_media_stream (pad, pipe, "videoconvert", "fakesink");
   } else if (g_str_has_prefix (name, "audio")) {
   //if (g_str_has_prefix (name, "audio")) {
     handle_media_stream (pad, pipe, "audioconvert", "filesink");
